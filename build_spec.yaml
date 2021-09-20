@@ -1,0 +1,21 @@
+version: 0.1
+component: build
+timeoutInSeconds: 6000
+runAs: root
+shell: bash
+
+env:
+  exportedVariables:
+    - commitHash
+
+steps:
+  - type: Command
+    name: "Get the current Commit"
+    timeoutInSeconds: 400
+    command: |
+      commitHash=`git rev-parse HEAD`
+
+outputArtifacts:
+  - name: ReadMeFile
+    type: BINARY
+    location: ${OCI_WORKSPACE_DIR}/TriggerIntegrationTest/README.md
